@@ -3,4 +3,9 @@ from .models import Ticket
 
 # Register your models here.
 
-admin.site.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user.username
+        obj.save()
+
+admin.site.register(Ticket, TicketAdmin)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Ticket(models.Model):
     STATUS = (
         ('O', 'Open'),
@@ -13,6 +14,10 @@ class Ticket(models.Model):
     asignee = models.ForeignKey(User)
     created_date = models.DateField(auto_now=False,auto_now_add=True)
 
+
     class Meta:
         verbose_name = "Ticket"
         verbose_name_plural = "Tickets"
+
+    def __str__(self):
+        return (self.title)
