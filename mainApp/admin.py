@@ -1,5 +1,10 @@
+from .custom_admin import custom_admin
 from django.contrib import admin
+from django.contrib.auth.models import User, Group
+
+
 from .models import Ticket
+
 
 
 class TicketAdmin(admin.ModelAdmin):
@@ -14,12 +19,14 @@ class TicketAdmin(admin.ModelAdmin):
         return super(TicketAdmin, self).change_view(request, object_id,
             form_url)
 
-   
 
     
 
     def save_model(self, request, obj, form, change):
-        obj.author = request.user.username
+        obj.author = request.user
         obj.save()
 
-admin.site.register(Ticket, TicketAdmin)
+
+custom_admin.register(Ticket, TicketAdmin)
+custom_admin.register(User)
+custom_admin.register(Group)

@@ -17,9 +17,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
+from mainApp.admin import custom_admin
 
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/admin')),
-    url(r'^admin/', admin.site.urls),
+    #url(r'^$', RedirectView.as_view(url='/admin')),
+    url(r'^admin/', custom_admin.urls),
 ]
