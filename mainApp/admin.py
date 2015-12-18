@@ -8,7 +8,10 @@ from .models import Ticket
 
 
 class TicketAdmin(admin.ModelAdmin):
-    
+    list_display = ['title', 'created_date', 'status']
+
+    list_filter = ['status']
+
     def add_view(self, request, form_url='', extra_context=None):
         self.exclude = ['author',]
         self.readonly_fields = ('status',)

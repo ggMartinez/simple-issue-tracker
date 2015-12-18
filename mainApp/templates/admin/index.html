@@ -3,9 +3,6 @@
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
 
-{% block content_title %}<h1>Dashboard</h1>{% endblock %}
-
-
 {% block coltype %}colMS{% endblock %}
 
 {% block bodyclass %}{{ block.super }} dashboard{% endblock %}
@@ -15,15 +12,67 @@
 {% block content %}
 <div id="content-main">
 
+    {% if tickets %}
+
+        <h3>My Tickets</h3>
+
+        <table width="100%">
+        <thead>
+        <tr>
+
+        <th >
+              Title
+         
+        </th>
+        <th >
+              Created Date
+        </th>
+        <th  >
+              Author
+        </th>
+
+        {% if show_all %}
+            <th>
+                  Status
+            </th>
+        {%endif%}
+
+        </tr>
+        </thead>
+        <tbody>
 
 
-{% if tickets %}
+        {% for t in tickets %}
+        <tr class="row1">
+            <td>
+                <a href="/admin/mainApp/ticket/{{ t.id }}/change/">{{ t.title }}</a>
+            </td>
+            <td>
+                {{ t.created_date }}
+            </td>
+            <td>
+                {{ t.author.first_name }} {{t.author.last_name}}
+            </td>
+            {% if show_all %}
+                <th>
+                      {{ t.get_status }}
+                </th>
+            {%endif%}
+        </tr>
+        {% endfor %}
 
-{% else %}
-    You don't have any ticket assigned.
-{% endif %}
+        </tbody>
+        </table>
 
-   
+
+
+                  
+              
+
+
+    {% else %}
+        You don't have any ticket assigned.
+    {% endif %}
 
 </div>
 {% endblock %}
@@ -31,15 +80,13 @@
 {% block sidebar %}
 <div id="content-related">
     <div class="module" id="recent-actions-module">
-        <h2>{% trans 'ACTIONS' %}</h2>
+        <h2>ACTIONS</h2>
         <h3><a href="/admin/mainApp/ticket/add/">Add new ticket</a></h3>
+        <h3><a href="/admin?show=all">List all tickets</a></h3>
         {% if request.user.is_superuser %}
             <h3><a href="/admin/auth/user">Manage Users</a></h3>
             <h3><a href="/admin/auth/group">Manage Groups</a></h3>
         {% endif %}
-
-
-         
     </div>
 </div>
 {% endblock %}
