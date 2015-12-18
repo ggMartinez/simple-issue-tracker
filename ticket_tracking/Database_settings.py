@@ -3,7 +3,7 @@
 
 import os
 
-#Comment or delete line below if you don't want to use a SQLite DB.
+# Comment or delete line below if you don't want to use a SQLite DB.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DATABASES = {
